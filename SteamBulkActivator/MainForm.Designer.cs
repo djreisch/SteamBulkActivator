@@ -37,6 +37,8 @@
             this.btn_Close = new System.Windows.Forms.PictureBox();
             this.panelControlHeaderSpacer2 = new System.Windows.Forms.PictureBox();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.num_RegDelay = new System.Windows.Forms.NumericUpDown();
             this.panelBitcoin = new System.Windows.Forms.Panel();
             this.panelBitcoinBottomSpacer = new System.Windows.Forms.PictureBox();
             this.txt_BitcoinAddress = new System.Windows.Forms.TextBox();
@@ -49,8 +51,8 @@
             this.panelDonateBottomSpacer = new System.Windows.Forms.PictureBox();
             this.panelActionHolder = new System.Windows.Forms.Panel();
             this.panelActionHolderSpacer = new System.Windows.Forms.PictureBox();
-            this.btn_Scrape = new System.Windows.Forms.Button();
             this.btn_Register = new System.Windows.Forms.Button();
+            this.btn_Scrape = new System.Windows.Forms.Button();
             this.panelContent = new System.Windows.Forms.Panel();
             this.txtKeys = new System.Windows.Forms.RichTextBox();
             this.txtKeysSpacerBottom = new System.Windows.Forms.PictureBox();
@@ -68,8 +70,6 @@
             this.tmr_LoveAnimation = new System.Windows.Forms.Timer(this.components);
             this.topSpacer = new System.Windows.Forms.PictureBox();
             this.tmr_Update = new System.Windows.Forms.Timer(this.components);
-            this.num_RegDelay = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
             this.panelHeader.SuspendLayout();
             this.panelControlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btn_Min)).BeginInit();
@@ -77,6 +77,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btn_Close)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControlHeaderSpacer2)).BeginInit();
             this.panelMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_RegDelay)).BeginInit();
             this.panelBitcoin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelBitcoinBottomSpacer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_MoveForm)).BeginInit();
@@ -100,7 +101,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btn_Github)).BeginInit();
             this.panelLoading.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.topSpacer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_RegDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // panelHeader
@@ -192,6 +192,44 @@
             this.panelMain.Size = new System.Drawing.Size(313, 361);
             this.panelMain.TabIndex = 7;
             this.panelMain.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(41)))), ((int)(((byte)(45)))));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 328);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(112, 18);
+            this.label1.TabIndex = 26;
+            this.label1.Text = "Register delay";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // num_RegDelay
+            // 
+            this.num_RegDelay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(41)))), ((int)(((byte)(45)))));
+            this.num_RegDelay.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.num_RegDelay.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num_RegDelay.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(214)))), ((int)(((byte)(214)))));
+            this.num_RegDelay.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.num_RegDelay.Location = new System.Drawing.Point(126, 328);
+            this.num_RegDelay.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.num_RegDelay.Name = "num_RegDelay";
+            this.num_RegDelay.Size = new System.Drawing.Size(175, 18);
+            this.num_RegDelay.TabIndex = 25;
+            this.num_RegDelay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.num_RegDelay.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             // 
             // panelBitcoin
             // 
@@ -337,6 +375,25 @@
             this.panelActionHolderSpacer.TabStop = false;
             this.panelActionHolderSpacer.Visible = false;
             // 
+            // btn_Register
+            // 
+            this.btn_Register.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(41)))), ((int)(((byte)(45)))));
+            this.btn_Register.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_Register.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Register.FlatAppearance.BorderSize = 0;
+            this.btn_Register.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(174)))), ((int)(((byte)(220)))));
+            this.btn_Register.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(174)))), ((int)(((byte)(220)))));
+            this.btn_Register.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Register.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Register.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(214)))), ((int)(((byte)(214)))));
+            this.btn_Register.Location = new System.Drawing.Point(0, 0);
+            this.btn_Register.Name = "btn_Register";
+            this.btn_Register.Size = new System.Drawing.Size(289, 42);
+            this.btn_Register.TabIndex = 19;
+            this.btn_Register.Text = "Register keys";
+            this.btn_Register.UseVisualStyleBackColor = false;
+            this.btn_Register.Click += new System.EventHandler(this.btn_Register_Click);
+            // 
             // btn_Scrape
             // 
             this.btn_Scrape.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(41)))), ((int)(((byte)(45)))));
@@ -356,25 +413,6 @@
             this.btn_Scrape.UseVisualStyleBackColor = false;
             this.btn_Scrape.Visible = false;
             this.btn_Scrape.Click += new System.EventHandler(this.btn_Scrape_Click);
-            // 
-            // btn_Register
-            // 
-            this.btn_Register.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(41)))), ((int)(((byte)(45)))));
-            this.btn_Register.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_Register.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_Register.FlatAppearance.BorderSize = 0;
-            this.btn_Register.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(174)))), ((int)(((byte)(220)))));
-            this.btn_Register.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(174)))), ((int)(((byte)(220)))));
-            this.btn_Register.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Register.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Register.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(214)))), ((int)(((byte)(214)))));
-            this.btn_Register.Location = new System.Drawing.Point(0, 0);
-            this.btn_Register.Name = "btn_Register";
-            this.btn_Register.Size = new System.Drawing.Size(289, 42);
-            this.btn_Register.TabIndex = 19;
-            this.btn_Register.Text = "Register keys";
-            this.btn_Register.UseVisualStyleBackColor = false;
-            this.btn_Register.Click += new System.EventHandler(this.btn_Register_Click);
             // 
             // panelContent
             // 
@@ -558,44 +596,6 @@
             this.tmr_Update.Interval = 500;
             this.tmr_Update.Tick += new System.EventHandler(this.tmr_Update_Tick);
             // 
-            // num_RegDelay
-            // 
-            this.num_RegDelay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(41)))), ((int)(((byte)(45)))));
-            this.num_RegDelay.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.num_RegDelay.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num_RegDelay.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(214)))), ((int)(((byte)(214)))));
-            this.num_RegDelay.Increment = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.num_RegDelay.Location = new System.Drawing.Point(126, 328);
-            this.num_RegDelay.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.num_RegDelay.Name = "num_RegDelay";
-            this.num_RegDelay.Size = new System.Drawing.Size(175, 18);
-            this.num_RegDelay.TabIndex = 25;
-            this.num_RegDelay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.num_RegDelay.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(41)))), ((int)(((byte)(45)))));
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 328);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 18);
-            this.label1.TabIndex = 26;
-            this.label1.Text = "Register delay";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -623,6 +623,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btn_Close)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControlHeaderSpacer2)).EndInit();
             this.panelMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.num_RegDelay)).EndInit();
             this.panelBitcoin.ResumeLayout(false);
             this.panelBitcoin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelBitcoinBottomSpacer)).EndInit();
@@ -647,7 +648,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btn_Github)).EndInit();
             this.panelLoading.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.topSpacer)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_RegDelay)).EndInit();
             this.ResumeLayout(false);
 
         }

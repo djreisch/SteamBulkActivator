@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ResourceEmbedder.Core</name>
+    </assembly>
+    <members>
+        <member name="M:ResourceEmbedder.Core.AssemblyExtensions.GetLocation(System.Reflection.Assembly)">
+            <summary>
+            Tries to resolve the assembly location as best as possible.
+            </summary>
+            <param name="asm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceEmbedder.Core.Cecil.CecilBasedAssemblyModifier.#ctor(ResourceEmbedder.Core.ILogger,System.String,System.String,System.String[],System.Nullable{System.Boolean})">
+            <summary>
+            Creates a new modifier that can insert resources and code into an assembly.
+            </summary>
+            <param name="logger"></param>
+            <param name="inputAssembly"></param>
+            <param name="outputAssembly"></param>
+            <param name="searchDirectories"></param>
+            <param name="rewriteDebugSymbols">Determines whether debug symbols are read. If null the modifier will check for the existence of a .pdb file and if found will read it.
+            If explicitely set to true and no pdb is found will cause an error.</param>
+        </member>
+        <member name="M:ResourceEmbedder.Core.Cecil.CecilBasedCodeInjector.Inject(Mono.Cecil.AssemblyDefinition,System.Func{Mono.Cecil.AssemblyDefinition,Mono.Cecil.MethodDefinition})">
+            <see cref="M:ResourceEmbedder.Core.IInjectCode.Inject(Mono.Cecil.AssemblyDefinition,System.Func{Mono.Cecil.AssemblyDefinition,Mono.Cecil.MethodDefinition})"/>
+        </member>
+        <member name="M:ResourceEmbedder.Core.Cecil.CecilBasedCodeInjector.FindOrCreateCctor(Mono.Cecil.ModuleDefinition)">
+            <summary>
+            Creates a new module initializer if none exists, else returns the existing.
+            </summary>
+            <param name="module"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ResourceEmbedder.Core.Cecil.CecilBasedResourceEmbedder">
+            <summary>
+            Implementation that uses Cecil to embedd resources into .Net assemblies.
+            </summary>
+        </member>
+        <member name="P:ResourceEmbedder.Core.Cecil.CecilBasedResourceEmbedder.Logger">
+            <summary>
+            The logger used during the embedding.
+            </summary>
+        </member>
+        <member name="M:ResourceEmbedder.Core.Cecil.CecilBasedResourceEmbedder.EmbedResources(Mono.Cecil.AssemblyDefinition,ResourceEmbedder.Core.ResourceInfo[])">
+            <summary>
+            Call to embedd the provided set of resources into the specific assembly.
+            Uses the <see cref="P:ResourceEmbedder.Core.Cecil.CecilBasedResourceEmbedder.Logger"/> to issue log messages.
+            </summary>
+            <param name="assembly"></param>
+            <param name="resourcesToEmbedd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceEmbedder.Core.Cecil.CecilHelpers.InjectEmbeddedResourceLoader(Mono.Cecil.AssemblyDefinition)">
+            <summary>
+            When called will inject the <see cref="T:ResourceEmbedder.Core.GeneratedCode.InjectedResourceLoader"/> type int the provided assembly.
+            Then returns the <see cref="M:ResourceEmbedder.Core.GeneratedCode.InjectedResourceLoader.Attach"/> method.
+            </summary>
+            <param name="definition">The assembly where the type should be added to.</param>
+            <returns>A public, static method with no arguments that was added to the assembly.</returns>
+        </member>
+        <member name="T:ResourceEmbedder.Core.Cecil.TypeCloner">
+            <summary>
+            Helper class to clone one type into a new module.
+            </summary>
+        </member>
+        <member name="M:ResourceEmbedder.Core.Cecil.TypeCloner.CloneTo(Mono.Cecil.TypeDefinition,Mono.Cecil.ModuleDefinition,System.String[],System.String,System.String)">
+            <summary>
+            Clones the provided type definition from one assembly to the other.
+            </summary>
+            <param name="sourceType">The type to clone.</param>
+            <param name="targetModule">The module where the type should be added to.</param>
+            <param name="methodCloneOrder">Cecil crashes when methods are added in wrong order. You must manually sort your methods in their reverse execution order if they depend on each other. I'm sure that this problem can be solved, but for now this implementation is "good enough" for me.</param>
+            <param name="nameSpace">The namespace to use. Leave null to use same namespace as in <see cref="!:sourceType"/></param>
+            <param name="className">The classname to use. Leave null to use same classname as in <see cref="!:sourceType"/></param>
+            <returns>The cloned type, already added to the targetModule.</returns>
+        </member>
+        <member name="M:ResourceEmbedder.Core.DictionaryExtensions.ToMultiDictionary``2(System.Collections.Generic.IEnumerable{``1},System.Func{``1,``0})">
+            <summary>
+            Returns a dictionary.
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+            <param name="collection"></param>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ResourceEmbedder.Core.IEmbedResources">
+            <summary>
+            Interface for a resource embedder.
+            </summary>
+        </member>
+        <member name="P:ResourceEmbedder.Core.IEmbedResources.Logger">
+            <summary>
+            The logger used during the embedding.
+            </summary>
+        </member>
+        <member name="M:ResourceEmbedder.Core.IEmbedResources.EmbedResources(Mono.Cecil.AssemblyDefinition,ResourceEmbedder.Core.ResourceInfo[])">
+            <summary>
+            Call to embedd the provided set of resources into the specific assembly.
+            Uses the <see cref="P:ResourceEmbedder.Core.IEmbedResources.Logger"/> to issue log messages.
+            </summary>
+            <param name="assembly">The assembly on which to perform injection. Call <see cref="M:Mono.Cecil.AssemblyDefinition.Write(System.String)"/> to save changes.</param>
+            <param name="resourcesToEmbedd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceEmbedder.Core.IInjectCode.Inject(Mono.Cecil.AssemblyDefinition,System.Func{Mono.Cecil.AssemblyDefinition,Mono.Cecil.MethodDefinition})">
+            <summary>
+            When called will inject a module initializer into it.
+            It will then ask you to embed your further code via <see cref="!:methodToCall"/>.
+            Once you have embedded your code, you must return the method that should be called from the module initializer.
+            Your method must be: static, public and have no arguments.
+            It will be the first to run when a module is loaded.
+            </summary>
+            <param name="assembly">The assembly on which to perform injection. Call <see cref="M:Mono.Cecil.AssemblyDefinition.Write(System.String)"/> to save changes.</param>
+            <param name="methodToCall"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceEmbedder.Core.ILogger.Indent(System.Int32)">
+            <summary>
+            Sets the indent to the specific level.
+            Must be positive.
+            </summary>
+            <param name="level"></param>
+        </member>
+        <member name="T:ResourceEmbedder.Core.IModifyAssemblies">
+            <summary>
+            Helper that allows resource embedding and code injection.
+            Target assembly will be saved on <see cref="M:System.IDisposable.Dispose"/>.
+            </summary>
+        </member>
+        <member name="P:ResourceEmbedder.Core.IModifyAssemblies.InputAssembly">
+            <summary>
+            Full path to the input assembly.
+            </summary>
+        </member>
+        <member name="P:ResourceEmbedder.Core.IModifyAssemblies.OutputAssembly">
+            <summary>
+            Full path to the output assembly location (may be the same as input).
+            </summary>
+        </member>
+        <member name="M:ResourceEmbedder.Core.IModifyAssemblies.EmbedResources(ResourceEmbedder.Core.ResourceInfo[])">
+            <summary>
+            Call to embed the specific set of resources into the assembly.
+            Call <see cref="M:ResourceEmbedder.Core.IModifyAssemblies.Save"/> to persit changes to disk.
+            </summary>
+            <param name="resourceInfo"></param>
+            <returns>True on success, false on error.</returns>
+        </member>
+        <member name="M:ResourceEmbedder.Core.IModifyAssemblies.InjectModuleInitializedCode(System.Func{Mono.Cecil.AssemblyDefinition,Mono.Cecil.MethodDefinition})">
+            <summary>
+            Call to inject code.
+            This will hook up a module initializer (first to run when the specific assembly is loaded) and then allow you to add your own types, etc.
+            by calling <see cref="!:func"/>. When you are done adding stuff, you must return the method that should be called by the module initializer.
+            It must be: public, static and have no arguments.
+            </summary>
+            <param name="func"></param>
+            <returns>True on success, false on error.</returns>
+        </member>
+        <member name="M:ResourceEmbedder.Core.IModifyAssemblies.Save">
+            <summary>
+            Call to save changes.
+            Also automatically called on dispose.
+            </summary>
+        </member>
+        <member name="T:ResourceEmbedder.Core.GeneratedCode.InjectedResourceLoader">
+            <summary>
+            Code that is injected into target assemblies.
+            Upon request for localized assemblies this will resolve and load the embedded resources.
+            </summary>
+        </member>
+        <member name="M:ResourceEmbedder.Core.GeneratedCode.InjectedResourceLoader.Attach">
+            <summary>
+            Call once to attach the assembly resolve event.
+            All embedded satellite assemblies will then be loaded.
+            The convention is that each assembly stores it's own satellite assemblies as embedded resources.
+            If the application name is WpfExe, then the resources are stored as WpfExe.de.resources.dll, WpfExe.fr.resources.dll, etc.
+            and will be loaded by this code.
+            </summary>
+        </member>
+        <member name="M:ResourceEmbedder.Core.GeneratedCode.InjectedResourceLoader.AssemblyResolve(System.Object,System.ResolveEventArgs)">
+            <summary>
+            Attach to resolve satellite assemblies from embedded resources.
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceEmbedder.Core.GeneratedCode.InjectedResourceLoader.FindMainAssembly(System.Reflection.AssemblyName)">
+            <summary>
+            Finds the main assembly for the specific resource.
+            This requires that the resources name ends with .resources.
+            </summary>
+            <param name="requestedAssemblyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ResourceEmbedder.Core.GeneratedCode.InjectedResourceLoader.IsLocalizedAssembly(System.Reflection.AssemblyName)">
+            <summary>
+            Checks whether the requested assembly is a satellite assembly or not.
+            </summary>
+            <param name="requestedAssemblyName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ResourceEmbedder.Core.ResourceInfo">
+            <summary>
+            Holds information regarding a resource to be embedded.
+            </summary>
+        </member>
+        <member name="P:ResourceEmbedder.Core.ResourceInfo.FullPathOfFileToEmbedd">
+            <summary>
+            The full path to the file that has to be embedded.
+            </summary>
+        </member>
+        <member name="P:ResourceEmbedder.Core.ResourceInfo.RelativePathInAssembly">
+            <summary>
+            The relative path in the target assembly.
+            </summary>
+        </member>
+    </members>
+</doc>
